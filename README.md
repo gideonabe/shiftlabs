@@ -260,10 +260,8 @@ MIT License - see LICENSE file for details
 ## Support
 
 For issues and questions:
-- GitHub Issues: [Create an issue](https://github.com/yourusername/shift/issues)
-- Email: support@shift.app
+- GitHub Issues: [Create an issue](https://github.com/gideonabe/shiftlabs/issues)
 
 ## Acknowledgments
 
-- Built with ❤️ for students everywhere
 - Inspired by Uber, Airbnb, and LinkedIn
