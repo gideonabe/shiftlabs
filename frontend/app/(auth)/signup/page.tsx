@@ -1,71 +1,35 @@
-'use client'
+'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { Mail, Lock, User, ArrowLeft, AlertCircle, Layers, ShieldCheck, TrendingUp } from 'lucide-react';
-import { useAuthStore } from '@/store/authStore';
-import { apiClient } from '@/app/api/client';
 
-// export const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic';
 
 export default function SignupPage() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const { setUser, setToken, setError, clearError } = useAuthStore();
+  // Mock static form state for safe prerendering
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    name: '',
-    role: (searchParams.get('role') as 'student' | 'employer') || 'student',
+    email: 'jane@university.edu',
+    password: 'password123',
+    name: 'Jane Doe',
+    role: 'student' as 'student' | 'employer',
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setErrorState] = useState<string | null>(null);
 
-
-  useEffect(() => {
-    const role = searchParams.get('role');
-    if (role && (role === 'student' || role === 'employer')) {
-      setFormData(prev => ({ ...prev, role }));
-    }
-  }, [searchParams]);
-  
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    clearError();
-    setErrorState(null);
-
-    // Client-side .edu validation for students
-    if (formData.role === 'student' && !formData.email.toLowerCase().endsWith('.edu')) {
-      setErrorState('A valid .edu university email is required for student accounts.');
+    console.log('Mock signup submitted:', formData);
+    // Simulate success
+    setTimeout(() => {
       setIsLoading(false);
-      return;
-    }
-
-    try {
-      const response = await apiClient.register({
-        email: formData.email,
-        password: formData.password,
-        name: formData.name,
-        role: formData.role,
-      });
-      const { access_token: token, user } = response.data;
-      
-      setToken(token);
-      setUser(user);
-      router.push('/dashboard');
-    } catch (err: any) {
-      const message = err.response?.data?.detail || 'Registration failed. Please verify your information and try again.';
-      setError(message);
-      setErrorState(message);
-    } finally {
-      setIsLoading(false);
-    }
+      setErrorState(null);
+      alert('✅ Signup mocked successfully! (No API call made.)');
+    }, 800);
   };
 
   return (
