@@ -103,7 +103,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -119,6 +119,14 @@ export default function LoginPage() {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setErrorState] = useState<string | null>(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setToken(token);
+    }
+  }, []);
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -137,7 +145,7 @@ export default function LoginPage() {
       const response = await apiClient.login(formData.email, formData.password);
       const { access_token: token, user } = response.data;
       
-      setToken(token);
+      // setToken(token);
       setUser(user);
       router.push('/dashboard');
     } catch (err: any) {
