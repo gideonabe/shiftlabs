@@ -1,24 +1,26 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { Mail, Lock, User, ArrowLeft, AlertCircle, Layers, ShieldCheck, TrendingUp } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
+// export const dynamic = 'force-dynamic';
 
 export default function SignupPage() {
   // Mock static form state for safe prerendering
   const [formData, setFormData] = useState({
-    email: 'jane@university.edu',
+    email: 'maya@university.edu',
     password: 'password123',
-    name: 'Jane Doe',
+    name: 'Maya Chen',
     role: 'student' as 'student' | 'employer',
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setErrorState] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,8 +30,9 @@ export default function SignupPage() {
     setTimeout(() => {
       setIsLoading(false);
       setErrorState(null);
-      alert('✅ Signup mocked successfully! (No API call made.)');
+      alert('Signup mocked successfully! (No API call made.)');
     }, 800);
+    router.push('/login')
   };
 
   return (

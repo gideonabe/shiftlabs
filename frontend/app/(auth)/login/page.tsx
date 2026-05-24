@@ -7,43 +7,27 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { Mail, Lock, ArrowLeft, AlertCircle, ShieldCheck, Zap, Layers } from 'lucide-react';
-import { useAuthStore } from '@/store/authStore';
-import { apiClient } from '@/app/api/client';
+
+// export const dynamic = 'force-dynamic';
 
 export default function LoginPage() {
   const router = useRouter();
-  const { setUser, setToken, setError, clearError } = useAuthStore();
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  // const { setUser, setToken, setError, clearError } = useAuthStore();
+  const [formData, setFormData] = useState({ email: 'maya@university.edu', password: 'password123' });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setErrorState] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    clearError();
-    setErrorState(null);
-
-    // Basic client-side .edu validation for UX
-    if (!formData.email.toLowerCase().endsWith('.edu')) {
-      setErrorState('A valid .edu university email is required to access Shift.');
+    console.log('Mock login submitted:', formData);
+    // Simulate success
+    setTimeout(() => {
       setIsLoading(false);
-      return;
-    }
-
-    try {
-      const response = await apiClient.login(formData.email, formData.password);
-      const { access_token: token, user } = response.data;
-      
-      setToken(token);
-      setUser(user);
-      router.push('/dashboard');
-    } catch (err: any) {
-      const message = err.response?.data?.detail || 'Login failed. Please verify your credentials.';
-      setError(message);
-      setErrorState(message);
-    } finally {
-      setIsLoading(false);
-    }
+      setErrorState(null);
+      alert('Login mocked successfully! (No API call made.)');
+    }, 800);
+    router.push('/dashboard')
   };
 
   return (
@@ -87,7 +71,7 @@ export default function LoginPage() {
               <Input
                 label="University Email"
                 type="email"
-                placeholder="student@university.edu"
+                placeholder="maya@university.edu"
                 leftIcon={<Mail size={18} className="text-gray-400" />}
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}

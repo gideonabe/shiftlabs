@@ -96,7 +96,7 @@ export function Sidebar() {
         
         <div className="flex items-center gap-3 px-2 py-2">
           <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-[#112A22] font-bold border border-gray-200">
-            {user?.name?.charAt(0) || 'U'}
+            {user?.name?.charAt(0) || 'M'}
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-bold text-gray-900 truncate">{user?.name || 'Maya'}</p>
