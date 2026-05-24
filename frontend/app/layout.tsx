@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Shift - Student Gig Economy Platform",
     description: "Find flexible gigs, connect with employers, and earn on your terms.",
-    url: "https://shiftlabs-raon.vercel.app",
+    url: "https://shiftlabs-roan.vercel.app",
     images: [
       {
         url: "https://shiftlabs-roan.vercel.app/thumbnail.png",
