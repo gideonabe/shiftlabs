@@ -10,6 +10,8 @@ import { Mail, Lock, User, ArrowLeft, AlertCircle, Layers, ShieldCheck, Trending
 import { useAuthStore } from '@/store/authStore';
 import { apiClient } from '@/app/api/client';
 
+export const dynamic = 'force-dynamic';
+
 export default function SignupPage() {
   const router = useRouter();
   const searchParams = useSearchParams();

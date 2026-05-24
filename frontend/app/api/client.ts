@@ -1,13 +1,14 @@
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { useAuthStore } from '../../store/authStore';
 
-const API_BASE_URL = process.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000/api';
 
-class ApiClient {
-  private client: AxiosInstance;
+// Lazy-initialized axios instance
+let client: AxiosInstance | null = null;
 
-  constructor() {
-    this.client = axios.create({
+const getClient = (): AxiosInstance => {
+  if (!client) {
+    client = axios.create({
       baseURL: API_BASE_URL,
       headers: {
         'Content-Type': 'application/json',
@@ -15,7 +16,7 @@ class ApiClient {
     });
 
     // Request interceptor to add auth token
-    this.client.interceptors.request.use((config) => {
+    client.interceptors.request.use((config) => {
       const token = useAuthStore.getState().token;
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
@@ -24,7 +25,7 @@ class ApiClient {
     });
 
     // Response interceptor to handle errors
-    this.client.interceptors.response.use(
+    client.interceptors.response.use(
       (response) => response,
       (error: AxiosError) => {
         if (error.response?.status === 401) {
@@ -34,37 +35,40 @@ class ApiClient {
       }
     );
   }
+  return client;
+};
 
-  // Auth endpoints
+// Auth endpoints
+export const apiClient = {
   async register(data: {
     email: string;
     password: string;
     name: string;
     role: string;
   }) {
-    return this.client.post('/auth/register', data);
-  }
+    return getClient().post('/auth/register', data);
+  },
 
   async login(email: string, password: string) {
-    return this.client.post('/auth/login', { email, password });
-  }
+    return getClient().post('/auth/login', { email, password });
+  },
 
   async verifyEmail(token: string) {
-    return this.client.post('/auth/verify-email', { token });
-  }
+    return getClient().post('/auth/verify-email', { token });
+  },
 
   async resendVerificationEmail(email: string) {
-    return this.client.post('/auth/resend-verification', { email });
-  }
+    return getClient().post('/auth/resend-verification', { email });
+  },
 
   // Gig endpoints
   async getGigs(params?: { skip?: number; limit?: number; category?: string }) {
-    return this.client.get('/gigs', { params });
-  }
+    return getClient().get('/gigs', { params });
+  },
 
   async getGig(id: string) {
-    return this.client.get(`/gigs/${id}`);
-  }
+    return getClient().get(`/gigs/${id}`);
+  },
 
   async createGig(data: {
     title: string;
@@ -76,76 +80,76 @@ class ApiClient {
     skills: string[];
     deadline: string;
   }) {
-    return this.client.post('/gigs', data);
-  }
+    return getClient().post('/gigs', data);
+  },
 
   async updateGig(id: string, data: Partial<any>) {
-    return this.client.put(`/gigs/${id}`, data);
-  }
+    return getClient().put(`/gigs/${id}`, data);
+  },
 
   async deleteGig(id: string) {
-    return this.client.delete(`/gigs/${id}`);
-  }
+    return getClient().delete(`/gigs/${id}`);
+  },
 
   async applyToGig(gigId: string, coverLetter: string) {
-    return this.client.post(`/gigs/${gigId}/apply`, { coverLetter });
-  }
+    return getClient().post(`/gigs/${gigId}/apply`, { coverLetter });
+  },
 
   // User endpoints
   async getProfile() {
-    return this.client.get('/users/profile');
-  }
+    return getClient().get('/users/profile');
+  },
 
   async updateProfile(data: Partial<any>) {
-    return this.client.put('/users/profile', data);
-  }
+    return getClient().put('/users/profile', data);
+  },
 
   async getUserById(id: string) {
-    return this.client.get(`/users/${id}`);
-  }
+    return getClient().get(`/users/${id}`);
+  },
 
   // Wallet endpoints
   async getWallet() {
-    return this.client.get('/wallet');
-  }
+    return getClient().get('/wallet');
+  },
 
   async addFunds(amount: number, method: string) {
-    return this.client.post('/wallet/add-funds', { amount, method });
-  }
+    return getClient().post('/wallet/add-funds', { amount, method });
+  },
 
   async withdrawFunds(amount: number, method: string) {
-    return this.client.post('/wallet/withdraw', { amount, method });
-  }
+    return getClient().post('/wallet/withdraw', { amount, method });
+  },
 
   // Chat endpoints
   async getConversations() {
-    return this.client.get('/chat/conversations');
-  }
+    return getClient().get('/chat/conversations');
+  },
 
   async getMessages(conversationId: string) {
-    return this.client.get(`/chat/conversations/${conversationId}/messages`);
-  }
+    return getClient().get(`/chat/conversations/${conversationId}/messages`);
+  },
 
   async sendMessage(conversationId: string, message: string) {
-    return this.client.post(`/chat/conversations/${conversationId}/messages`, { message });
-  }
+    return getClient().post(`/chat/conversations/${conversationId}/messages`, { message });
+  },
 
   async createConversation(userId: string) {
-    return this.client.post('/chat/conversations', { userId });
-  }
+    return getClient().post('/chat/conversations', { userId });
+  },
 
   // Admin endpoints
   async getAnalytics() {
-    return this.client.get('/admin/analytics');
-  }
+    return getClient().get('/admin/analytics');
+  },
 
   async getUsers(params?: { skip?: number; limit?: number; role?: string }) {
-    return this.client.get('/admin/users', { params });
-  }
+    return getClient().get('/admin/users', { params });
+  },
 
   async banUser(userId: string) {
-    return this.client.post(`/admin/users/${userId}/ban`);
-  }
-}
+    return getClient().post(`/admin/users/${userId}/ban`);
+  },
+};
 
-export const apiClient = new ApiClient();
+// Export is now the object literal above
