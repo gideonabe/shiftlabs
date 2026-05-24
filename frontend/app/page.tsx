@@ -1,352 +1,3 @@
-// 'use client';
-
-// import React, { useState } from 'react';
-// import Link from 'next/link';
-// import { motion } from 'framer-motion';
-// import { SplashScreen } from '@/components/SplashScreen';
-// import { 
-//   TrendingUp, 
-//   ShieldCheck, 
-//   Clock, 
-//   CheckCircle2, 
-//   Search, 
-//   Zap, 
-//   Building2, 
-//   Plus, 
-//   Layers 
-// } from 'lucide-react';
-
-// export default function Home() {
-//   const [showSplash, setShowSplash] = useState(true);
-
-//   if (showSplash) {
-//     return <SplashScreen onLoadComplete={() => setShowSplash(false)} />;
-//   }
-
-//   return (
-//     <main className="min-h-screen bg-[#FAF9F6] text-[#131514] selection:bg-[#112A22] selection:text-white font-sans antialiased overflow-x-hidden">
-      
-//       {/* ==================== NAVIGATION ==================== */}
-//       <nav className="absolute top-0 w-full z-40 px-6 py-4 flex items-center justify-between text-white">
-//         <div className="flex items-center gap-2">
-//           <Layers size={20} className="fill-current text-brand-dark" strokeWidth={1.5} />
-//           <span className="font-bold text-xl tracking-tight text-brand-dark">Shift</span>
-//         </div>
-//         <div className="hidden md:flex gap-8 text-sm font-medium text-black">
-//           <Link href="#" className="hover:opacity-70 transition-opacity">Product</Link>
-//           <Link href="#" className="hover:opacity-70 transition-opacity">Students</Link>
-//           <Link href="#" className="hover:opacity-70 transition-opacity">Company</Link>
-//           <Link href="#" className="hover:opacity-70 transition-opacity">Resources</Link>
-//         </div>
-
-//         <div className='flex gap-6 items-center text-black'>
-//           <Link href={"/signup"}>
-//             <button className=''>
-//               Sign up
-//             </button>
-//           </Link>
-//           <Link href={"/login"}>
-//             <button className=''>
-//               Sign in
-//             </button>
-//           </Link>
-//           {/* <button className="bg-brand-dark text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:scale-105 transition-transform">
-//             Demo
-//           </button> */}
-
-//         </div>
-//       </nav>
-
-//       {/* ==================== HERO SECTION ==================== */}
-//       <section className="relative pt-48 pb-32 px-6 text-center overflow-hidden">
-//         {/* Background Image with Fallback Color */}
-//         <div 
-//           className="absolute inset-0 z-0 bg-no-repeat bg-center bg-cover bg-[#E7CBA9]" 
-//           style={{ backgroundImage: "url('/shiftfooter.jpg')" }} 
-//         />
-//         {/* Soft overlay to ensure dark text remains readable over the image */}
-//         <div className="absolute inset-0 bg-[#FAF9F6]/75 backdrop-blur-xs z-0" />
-        
-//         <div className="relative z-10 max-w-4xl mx-auto space-y-8">
-//           <motion.h1 
-//             initial={{ opacity: 0, y: 20 }} 
-//             animate={{ opacity: 1, y: 0 }} 
-//             transition={{ duration: 0.8 }}
-//             className="text-6xl md:text-7xl font-medium tracking-tight text-[#112A22] leading-[1.05]"
-//           >
-//             The new standard <br /> in student work
-//           </motion.h1>
-          
-//           <motion.p 
-//             initial={{ opacity: 0, y: 20 }} 
-//             animate={{ opacity: 1, y: 0 }} 
-//             transition={{ duration: 0.8, delay: 0.1 }}
-//             className="text-xl text-gray-700 max-w-2xl mx-auto"
-//           >
-//             Meet the platform that accelerates local hiring, automates schedules, and grows student income securely.
-//           </motion.p>
-          
-//           <motion.div 
-//             initial={{ opacity: 0, y: 20 }} 
-//             animate={{ opacity: 1, y: 0 }} 
-//             transition={{ duration: 0.8, delay: 0.2 }}
-//           >
-//             <button className="bg-[#112A22] text-white px-8 py-3.5 rounded-full font-medium hover:bg-[#1c4236] transition-colors">
-//               Get started
-//             </button>
-//           </motion.div>
-
-//           <div className="pt-20">
-//             <p className="text-xs text-gray-500 font-medium uppercase tracking-widest mb-8">
-//               Built for businesses where flexibility matters
-//             </p>
-//             <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16 opacity-40 grayscale">
-//               <span className="text-xl font-bold">Stripe</span>
-//               <span className="text-xl font-bold">Plaid</span>
-//               <span className="text-xl font-bold">Square</span>
-//               <span className="text-xl font-bold">Notion</span>
-//             </div>
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* ==================== STATS & FEATURES ==================== */}
-//       <section className="py-24 px-6 max-w-6xl mx-auto border-t border-gray-200/60">
-//         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-32">
-//           <div>
-//             <h3 className="text-5xl font-light text-[#112A22] mb-2">10.6x</h3>
-//             <p className="text-gray-500 text-sm font-medium">Faster onboarding</p>
-//           </div>
-//           <div>
-//             <h3 className="text-5xl font-light text-[#112A22] mb-2">37%</h3>
-//             <p className="text-gray-500 text-sm font-medium">Retention increase</p>
-//           </div>
-//           <div>
-//             <h3 className="text-5xl font-light text-[#112A22] mb-2">4.8x</h3>
-//             <p className="text-gray-500 text-sm font-medium">Manager efficiency</p>
-//           </div>
-//         </div>
-
-//         <div className="mb-12">
-//           <h2 className="text-4xl font-medium tracking-tight mb-16">Designed to convert. Built to scale.</h2>
-//           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-//             <div>
-//               <TrendingUp size={24} strokeWidth={1.5} className="mb-4 text-[#112A22]" />
-//               <h4 className="text-lg font-semibold mb-2">Drive local revenue</h4>
-//               <p className="text-gray-600 text-sm leading-relaxed">
-//                 Optimized to eliminate friction and instantly deliver highly vetted students to your doorstep.
-//               </p>
-//             </div>
-//             <div>
-//               <ShieldCheck size={24} strokeWidth={1.5} className="mb-4 text-[#112A22]" />
-//               <h4 className="text-lg font-semibold mb-2">Future-proof compliance</h4>
-//               <p className="text-gray-600 text-sm leading-relaxed">
-//                 A powerful verification engine translates university guidelines into code—enabling detailed audit trails.
-//               </p>
-//             </div>
-//             <div>
-//               <Clock size={24} strokeWidth={1.5} className="mb-4 text-[#112A22]" />
-//               <h4 className="text-lg font-semibold mb-2">Reduce overhead costs</h4>
-//               <p className="text-gray-600 text-sm leading-relaxed">
-//                 Eliminate manual checks, endless emails, and lengthy reviews by automating the gig workflow entirely.
-//               </p>
-//             </div>
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* ==================== MASONRY TESTIMONIALS ==================== */}
-//       <section className="py-24 px-6 max-w-6xl mx-auto">
-//         <div className="text-center mb-16">
-//           <h2 className="text-3xl font-medium tracking-tight mb-4">Trusted by campus leaders</h2>
-//           <p className="text-gray-500">Run your student workforce like the world's best companies.</p>
-//         </div>
-
-//         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 h-auto md:h-[500px]">
-//           <div className="md:col-span-4 bg-[#EFECE4] rounded-3xl p-8 relative flex flex-col justify-between group overflow-hidden">
-//             <h3 className="text-4xl font-medium text-[#112A22]">Qonto</h3>
-//             <div className="absolute bottom-6 right-6 bg-white rounded-full p-2 group-hover:scale-110 transition-transform cursor-pointer shadow-sm">
-//               <Plus size={20} />
-//             </div>
-//           </div>
-          
-//           <div className="md:col-span-4 bg-gradient-to-br from-[#D9CDB8] to-[#B5A898] rounded-3xl p-8 text-white relative flex flex-col justify-end">
-//             <p className="font-medium">"Shift's policy engine and architecture systems are exceptional."</p>
-//             <p className="text-sm mt-2 opacity-80">David Singleton, Former CTO, Stripe</p>
-//           </div>
-          
-//           <div className="md:col-span-4 bg-[#A3B19B] rounded-3xl p-8 text-[#112A22] relative flex flex-col justify-center">
-//             <p className="font-medium text-lg">"Business onboarding used to be a cost center. Now, it's a revenue driver thanks to Shift's intuitive flows."</p>
-//             <p className="text-sm mt-4 font-semibold">Zak Lambert, GM EMEA, Plaid</p>
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* ==================== SYSTEM INFRASTRUCTURE ==================== */}
-//       <section className="py-32 px-6 bg-white border-y border-gray-100">
-//         <div className="max-w-6xl mx-auto flex flex-col items-center">
-//           <div className="text-center mb-20 max-w-2xl">
-//             <h2 className="text-3xl font-medium tracking-tight mb-4">The infrastructure behind every shift</h2>
-//             <p className="text-gray-500 text-sm">
-//               At the heart of Shift's platform is a powerful verification and matching engine driving decisions across the entire gig lifecycle.
-//             </p>
-//           </div>
-
-//           <div className="relative w-full max-w-4xl flex flex-col items-center justify-center py-10">
-//             {/* Structural Lines */}
-//             <div className="absolute top-1/2 left-0 right-0 h-[1px] bg-gray-200 border-dashed border-t" />
-//             <div className="absolute top-1/2 bottom-0 left-1/2 w-[1px] bg-gray-200 border-dashed border-l z-0" />
-//             <div className="absolute top-0 bottom-1/2 left-1/2 w-[1px] bg-gray-200 border-dashed border-l z-0" />
-            
-//             {/* Horizontal Nodes */}
-//             <div className="flex justify-between items-center w-full relative z-10">
-//               <div className="bg-white border border-gray-200 px-6 py-2.5 rounded-full text-sm font-medium shadow-sm">Onboard</div>
-              
-//               <div className="relative">
-//                 <div className="absolute inset-0 bg-gradient-to-r from-[#E7CBA9] to-[#A3B19B] rounded-[100px] blur-md opacity-50 scale-110" />
-//                 <div className="bg-[#112A22] text-white px-12 py-8 rounded-[100px] text-2xl font-medium shadow-xl relative z-10">
-//                   Matching Engine
-//                 </div>
-//               </div>
-
-//               <div className="bg-white border border-gray-200 px-6 py-2.5 rounded-full text-sm font-medium shadow-sm">Lifecycle</div>
-//             </div>
-            
-//             {/* Vertical Nodes */}
-//             <div className="absolute top-0 bg-white border border-gray-200 px-6 py-2.5 rounded-full text-sm font-medium shadow-sm z-10">Decide</div>
-//             <div className="absolute bottom-0 bg-white border border-gray-200 px-6 py-2.5 rounded-full text-sm font-medium shadow-sm z-10">Data Platform</div>
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* ==================== ONBOARDING FEATURE ==================== */}
-//       <section className="py-24 px-6 max-w-6xl mx-auto">
-//         <span className="text-xs font-semibold bg-gray-100 px-2 py-1 rounded text-gray-600 mb-6 inline-block">Onboard</span>
-//         <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-//           <div>
-//             <h2 className="text-3xl font-medium tracking-tight mb-4">Drive revenue with Shift Match</h2>
-//             <p className="text-gray-600 mb-8">High-converting student onboarding journeys — no code required.</p>
-            
-//             <ul className="space-y-6">
-//               <li className="flex gap-4">
-//                 <Building2 size={20} className="text-gray-400 shrink-0" />
-//                 <div>
-//                   <h4 className="font-semibold text-sm">20+ Campus Modules</h4>
-//                   <p className="text-sm text-gray-500 mt-1">Benefit from pre-fills and intelligent routing based on university.</p>
-//                 </div>
-//               </li>
-//               <li className="flex gap-4">
-//                 <TrendingUp size={20} className="text-gray-400 shrink-0" />
-//                 <div>
-//                   <h4 className="font-semibold text-sm">Optimized for conversion</h4>
-//                   <p className="text-sm text-gray-500 mt-1">Smart reminders and dynamic interfaces.</p>
-//                 </div>
-//               </li>
-//             </ul>
-//           </div>
-
-//           <div className="bg-[#F1F0EA] rounded-3xl p-8 flex items-center justify-center min-h-[400px]">
-//             <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 w-full max-w-sm space-y-4">
-//               <div className="space-y-2">
-//                 <label className="text-xs font-medium text-gray-500">Student Search</label>
-//                 <div className="flex items-center gap-2 border border-gray-200 rounded-lg p-2 text-sm">
-//                   <Search size={14} className="text-gray-400" />
-//                   <span>CS Major, Year 3</span>
-//                 </div>
-//               </div>
-//               <div className="h-[1px] bg-gray-100 my-4" />
-//               <div className="bg-green-50 text-green-700 p-3 rounded-lg flex items-center gap-2 text-sm font-medium border border-green-100">
-//                 <CheckCircle2 size={16} /> Identity Verified
-//               </div>
-//               <div className="bg-gray-50 p-3 rounded-lg flex items-center gap-2 text-sm text-gray-600 border border-gray-100">
-//                 <Zap size={16} /> Skills Autofilled
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* ==================== FOOTER ==================== */}
-//       <footer 
-//         className="bg-no-repeat bg-center bg-cover text-white pt-24 pb-12 px-6 relative h-screen" 
-//         style={{ backgroundImage: "url('/shiftfooter.jpg')" }}
-//       >
-//         {/* Deep green overlay for crisp text legibility over the image */}
-//         <div className="absolute inset-0 bg-[#112A22]/65 z-0" />
-        
-//         <div className="max-w-6xl mx-auto relative z-10 flex flex-col h-full justify-between">
-//           <div className="grid grid-cols-2 md:grid-cols-5 gap-12 mb-20 text-sm">
-//             <div className="col-span-2">
-//               <div className="flex items-center gap-2 mb-6">
-//                 <Layers size={24} className="fill-current" strokeWidth={1.5} />
-//                 <span className="font-bold text-2xl tracking-tight">Shift</span>
-//               </div>
-//             </div>
-            
-//             <div>
-//               <h5 className="font-semibold mb-4 text-white/90">Product</h5>
-//               <ul className="space-y-3 text-white/60">
-//                 <li><Link href="#" className="hover:text-white transition-colors">Matching Engine</Link></li>
-//                 <li><Link href="#" className="hover:text-white transition-colors">Onboard</Link></li>
-//                 <li><Link href="#" className="hover:text-white transition-colors">Decide</Link></li>
-//                 <li><Link href="#" className="hover:text-white transition-colors">Lifecycle</Link></li>
-//               </ul>
-//             </div>
-            
-//             <div>
-//               <h5 className="font-semibold mb-4 text-white/90">Industries</h5>
-//               <ul className="space-y-3 text-white/60">
-//                 <li><Link href="#" className="hover:text-white transition-colors">Retail</Link></li>
-//                 <li><Link href="#" className="hover:text-white transition-colors">Events</Link></li>
-//                 <li><Link href="#" className="hover:text-white transition-colors">Campus Ops</Link></li>
-//               </ul>
-//             </div>
-            
-//             <div>
-//               <h5 className="font-semibold mb-4 text-white/90">Company</h5>
-//               <ul className="space-y-3 text-white/60">
-//                 <li><Link href="#" className="hover:text-white transition-colors">About</Link></li>
-//                 <li><Link href="#" className="hover:text-white transition-colors">News</Link></li>
-//                 <li><Link href="#" className="hover:text-white transition-colors">Careers</Link></li>
-//               </ul>
-//             </div>
-//           </div>
-          
-//           <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 text-white/40 text-xs">
-//             <p>© {new Date().getFullYear()} Shift Technologies Inc.</p>
-//             <div className="flex gap-6 mt-4 md:mt-0">
-//               <Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link>
-//               <Link href="#" className="hover:text-white transition-colors">Security</Link>
-//             </div>
-//           </div>
-//         </div>
-//       </footer>
-      
-//     </main>
-//   );
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 'use client';
 
 import React, { useState } from 'react';
@@ -425,7 +76,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-6xl md:text-7xl font-medium tracking-tight text-[#112A22] leading-[1.05]"
+            className="text-4xl md:text-7xl font-medium tracking-tight text-[#112A22] leading-[1.05]"
           >
             Your campus has <br /> an economy.
           </motion.h1>
@@ -434,7 +85,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl text-gray-700 max-w-2xl mx-auto"
+            className="text-base md:text-xl text-gray-700 max-w-2xl mx-auto"
           >
             The hyper-local gig network built exclusively for students. Find help fast, earn money between classes, and coordinate safely within your university.
           </motion.p>
@@ -457,7 +108,7 @@ export default function Home() {
             </Link>
           </motion.div>
 
-          <div className="pt-20">
+          <div className="pt-10 md:pt-20">
             <p className="text-xs text-gray-500 font-medium uppercase tracking-widest mb-8">
               Active micro-economies at top universities
             </p>
@@ -472,24 +123,24 @@ export default function Home() {
       </section>
 
       {/* ==================== STATS & FEATURES ==================== */}
-      <section className="py-24 px-6 max-w-6xl mx-auto border-t border-gray-200/60" id="how-it-works">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-32">
+      <section className="py-14 md:py-24 px-6 max-w-6xl mx-auto border-t border-gray-200/60" id="how-it-works">
+        <div className="grid grid-cols-3 gap-12 mb-32">
           <div>
-            <h3 className="text-5xl font-light text-[#112A22] mb-2">15m</h3>
+            <h3 className="text-3xl md:text-5xl font-light text-[#112A22] mb-2">15m</h3>
             <p className="text-gray-500 text-sm font-medium">Average time to fill a gig</p>
           </div>
           <div>
-            <h3 className="text-5xl font-light text-[#112A22] mb-2">100%</h3>
+            <h3 className="text-3xl md:text-5xl font-light text-[#112A22] mb-2">100%</h3>
             <p className="text-gray-500 text-sm font-medium">Verified student profiles</p>
           </div>
           <div>
-            <h3 className="text-5xl font-light text-[#112A22] mb-2">$0</h3>
+            <h3 className="text-3xl md:text-5xl font-light text-[#112A22] mb-2">$0</h3>
             <p className="text-gray-500 text-sm font-medium">Payment friction via Escrow</p>
           </div>
         </div>
 
         <div className="mb-12">
-          <h2 className="text-4xl font-medium tracking-tight mb-16 max-w-2xl">
+          <h2 className="text-3xl md:text-4xl font-medium tracking-tight mb-16 max-w-2xl">
             Unlike open marketplaces, Shift is built for speed and trust.
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -519,7 +170,7 @@ export default function Home() {
       </section>
 
       {/* ==================== MASONRY TESTIMONIALS ==================== */}
-      <section className="py-24 px-6 max-w-6xl mx-auto" id="trust">
+      <section className="py-8 md:py-24 px-6 max-w-6xl mx-auto" id="trust">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-medium tracking-tight mb-4">Powered by the student network</h2>
           <p className="text-gray-500">Real gigs. Real money. Real students.</p>
@@ -560,9 +211,9 @@ export default function Home() {
       </section>
 
       {/* ==================== SYSTEM INFRASTRUCTURE (Flowchart) ==================== */}
-      <section className="py-32 px-6 bg-white border-y border-gray-100">
+      <section className="py-18 md:py-32 px-6 bg-white border-y border-gray-100">
         <div className="max-w-6xl mx-auto flex flex-col items-center">
-          <div className="text-center mb-20 max-w-2xl">
+          <div className="text-center  mb-10 md:mb-20 max-w-2xl">
             <h2 className="text-3xl font-medium tracking-tight mb-4">Zero friction from request to payout</h2>
             <p className="text-gray-500 text-sm">
               Our matching engine handles the logistics, communication, and payments seamlessly in the background.
@@ -598,7 +249,7 @@ export default function Home() {
       </section>
 
       {/* ==================== GIG FEED FEATURE ==================== */}
-      <section className="py-24 px-6 max-w-6xl mx-auto">
+      <section className="py-4 md:py-24 px-6 max-w-6xl mx-auto">
         <span className="text-xs font-semibold bg-gray-100 px-3 py-1.5 rounded-full text-gray-600 mb-6 inline-block tracking-wide uppercase">
           Live Feed
         </span>
