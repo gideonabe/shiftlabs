@@ -55,8 +55,27 @@ export const metadata: Metadata = {
     userScalable: true,
   },
   themeColor: "#FFFFFF",
-  manifest: "/manifest.json",
-}
+  manifest: './manifest.json',
+  openGraph: {
+    title: "Shift - Student Gig Economy Platform",
+    description: "Find flexible gigs, connect with employers, and earn on your terms.",
+    url: "https://shiftlabs-raon.vercel.app",
+    images: [
+      {
+        url: "https://shiftlabs-roan.vercel.app/thumbnail.png",
+        width: 1200,
+        height: 630,
+        alt: "Shift platform preview",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shift - Student Gig Economy Platform",
+    description: "Find flexible gigs, connect with employers, and earn on your terms.",
+    images: ["https://shiftlabs-roan.vercel.app/thumbnail.png"],
+  },
+};
 
 export default function RootLayout({
   children,

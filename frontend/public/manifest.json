@@ -1,9 +1,0 @@
-{
-  "name": "Shift",
-  "short_name": "Shift",
-  "description": "Student Gig Economy Platform",
-  "display": "browser",
-  "start_url": "/",
-  "theme_color": "#112A22",
-  "background_color": "#FAF9F6"
-}
