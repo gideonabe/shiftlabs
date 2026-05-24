@@ -23,15 +23,6 @@ export default function SignupPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setErrorState] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('token');
-      if (token) {
-        setToken(token);
-      }
-    }
-  }, []);
-
 
   useEffect(() => {
     const role = searchParams.get('role');

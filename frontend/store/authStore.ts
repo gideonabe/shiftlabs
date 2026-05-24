@@ -25,14 +25,25 @@ export interface AuthStore {
   setError: (error: string | null) => void;
   logout: () => void;
   clearError: () => void;
+  hydrate: () => void;
 }
 
 export const useAuthStore = create<AuthStore>((set) => ({
   user: null,
-  token: null, // don't touch localStorage here
+  token: null,
   isAuthenticated: false,
   isLoading: false,
   error: null,
+  
+  hydrate: () => {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token');
+      set({ 
+        token, 
+        isAuthenticated: !!token 
+      });
+    }
+  },
   
   setUser: (user) => set({ user, isAuthenticated: !!user }),
   setToken: (token) => {
