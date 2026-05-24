@@ -1,0 +1,31 @@
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", });
+
+export const metadata: Metadata = {
+  title: "Shift - Student Gig Economy Platform",
+  description: "Find flexible gigs, connect with employers, and earn on your terms.",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+  },
+  themeColor: "#FFFFFF",
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" className="scroll-smooth">
+      <body className={`${inter.className} bg-neutral-50 text-neutral-900`}>
+        {children}
+      </body>
+    </html>
+  );
+}

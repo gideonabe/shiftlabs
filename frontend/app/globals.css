@@ -1,0 +1,61 @@
+/* 1. The new v4 import (replaces @tailwind base, components, utilities) */
+@import "tailwindcss";
+
+/* 2. Your entire configuration lives here now */
+@theme {
+  /* Core Brand Colors */
+  --color-background: #FAF9F6;
+  --color-foreground: #131514;
+  
+  --color-brand-dark: #112A22;
+  --color-brand-sand: #EFECE4;
+  --color-brand-accent: #D4AF37;
+
+  /* Custom borders */
+  --color-border-soft: color-mix(in srgb, #131514 10%, transparent);
+
+  /* You can even alias standard fonts if you are using a premium typeface */
+  --font-sans: var(--font-inter), sans-serif;
+}
+
+/* 3. Base styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    /* Premium typographic rendering */
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1, "cv01" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Global soft borders to match the reference */
+  * {
+    border-color: var(--color-border-soft);
+  }
+
+  /* Deep Spruce selection color */
+  ::selection {
+    background-color: var(--color-brand-dark);
+    color: var(--color-background);
+  }
+}
+
+/* 4. Custom Utilities */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
