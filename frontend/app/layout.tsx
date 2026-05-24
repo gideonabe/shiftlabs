@@ -55,7 +55,8 @@ export const metadata: Metadata = {
     userScalable: true,
   },
   themeColor: "#FFFFFF",
-};
+  manifest: "/manifest.json",
+}
 
 export default function RootLayout({
   children,
