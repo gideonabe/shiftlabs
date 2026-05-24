@@ -38,14 +38,10 @@
 // }
 
 
-
-'use client';
-
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import React, { useEffect } from "react";
-import { useAuthStore } from "@/store/authStore";
+import RootLayoutClient from "./layout-client";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -66,15 +62,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  useEffect(() => {
-    // Hydrate auth state from localStorage on client mount
-    useAuthStore.getState().hydrate();
-  }, []);
-
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.className} bg-neutral-50 text-neutral-900`}>
-        {children}
+        <RootLayoutClient>{children}</RootLayoutClient>
       </body>
     </html>
   );
