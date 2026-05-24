@@ -17,9 +17,11 @@ const getClient = (): AxiosInstance => {
 
     // Request interceptor to add auth token
     client.interceptors.request.use((config) => {
-      const token = useAuthStore.getState().token;
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+      if (typeof window !== 'undefined') {
+        const token = useAuthStore.getState().token;
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
       }
       return config;
     });

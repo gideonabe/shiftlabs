@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -10,7 +10,7 @@ import { Mail, Lock, User, ArrowLeft, AlertCircle, Layers, ShieldCheck, Trending
 import { useAuthStore } from '@/store/authStore';
 import { apiClient } from '@/app/api/client';
 
-export const dynamic = 'force-dynamic';
+// export const dynamic = 'force-dynamic';
 
 export default function SignupPage() {
   const router = useRouter();
