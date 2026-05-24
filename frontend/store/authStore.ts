@@ -29,8 +29,8 @@ export interface AuthStore {
 
 export const useAuthStore = create<AuthStore>((set) => ({
   user: null,
-  token: typeof window !== 'undefined' ? localStorage.getItem('token') : null,
-  isAuthenticated: typeof window !== 'undefined' ? !!localStorage.getItem('token') : false,
+  token: null, // don't touch localStorage here
+  isAuthenticated: false,
   isLoading: false,
   error: null,
   

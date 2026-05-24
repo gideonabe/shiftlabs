@@ -1,106 +1,3 @@
-// 'use client';
-
-// import { useState } from 'react';
-// import { useRouter } from 'next/navigation';
-// import { Button } from '@/components/Button';
-// import { Input } from '@/components/Input';
-// import { Card, CardContent, CardHeader, CardTitle } from '@/components/Card';
-// import { Mail, Lock } from 'lucide-react';
-// import { useAuthStore } from '@/store/authStore';
-// import { apiClient } from '@/app/api/client';
-
-// export default function LoginPage() {
-//   const router = useRouter();
-//   const { setUser, setToken, setError, clearError } = useAuthStore();
-//   const [formData, setFormData] = useState({ email: '', password: '' });
-//   const [isLoading, setIsLoading] = useState(false);
-//   const [error, setErrorState] = useState<string | null>(null);
-
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault();
-//     setIsLoading(true);
-//     clearError();
-//     setErrorState(null);
-
-//     try {
-//       const response = await apiClient.login(formData.email, formData.password);
-//       const { access_token: token, user } = response.data;
-      
-//       setToken(token);
-//       setUser(user);
-//       router.push('/dashboard');
-//     } catch (err: any) {
-//       const message = err.response?.data?.detail || 'Login failed. Please try again.';
-//       setError(message);
-//       setErrorState(message);
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   };
-
-//   return (
-//     <div className="min-h-screen bg-[#FAF9F6] flex items-center justify-center px-4 py-12">
-//       <Card className="w-full max-w-md">
-//         <CardHeader>
-//           <div className="flex items-center gap-2 mb-4">
-//             <div className="w-10 h-10 bg-[#112A22] rounded-lg flex items-center justify-center">
-//               <span className="text-white font-bold text-xl">S</span>
-//             </div>
-//             <span className="text-2xl font-bold text-[#112A22]">Shift</span>
-//           </div>
-//           <CardTitle className="text-2xl font-medium">Sign in to your account</CardTitle>
-//         </CardHeader>
-//         <CardContent>
-//           <form onSubmit={handleSubmit} className="space-y-4">
-//             <Input
-//               label="Email"
-//               type="email"
-//               placeholder="your@email.com"
-//               leftIcon={<Mail size={18} />}
-//               value={formData.email}
-//               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-//               required
-//             />
-//             <Input
-//               label="Password"
-//               type="password"
-//               placeholder="••••••••"
-//               leftIcon={<Lock size={18} />}
-//               value={formData.password}
-//               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-//               required
-//             />
-//             {error && (
-//               <div className="text-red-500 text-sm flex items-center gap-1">
-//                 <span>⚠️</span>
-//                 {error}
-//               </div>
-//             )}
-//             <Button type="submit" fullWidth isLoading={isLoading}>
-//               Sign In
-//             </Button>
-//             <div className="text-center text-sm text-gray-600 mt-4">
-//               Don't have an account?{' '}
-//               <a href="/signup" className="text-[#112A22] font-semibold hover:underline">
-//                 Sign up
-//               </a>
-//             </div>
-//           </form>
-//         </CardContent>
-//       </Card>
-//     </div>
-//   );
-// }
-
-
-
-
-
-
-
-
-
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -121,11 +18,14 @@ export default function LoginPage() {
   const [error, setErrorState] = useState<string | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setToken(token);
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token');
+      if (token) {
+        setToken(token);
+      }
     }
   }, []);
+  
   
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -145,7 +45,7 @@ export default function LoginPage() {
       const response = await apiClient.login(formData.email, formData.password);
       const { access_token: token, user } = response.data;
       
-      // setToken(token);
+      setToken(token);
       setUser(user);
       router.push('/dashboard');
     } catch (err: any) {

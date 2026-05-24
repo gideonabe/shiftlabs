@@ -1,158 +1,3 @@
-// 'use client';
-
-// import { useState, useEffect } from 'react';
-// import { useRouter, useSearchParams } from 'next/navigation';
-// import { Button } from '@/components/Button';
-// import { Input } from '@/components/Input';
-// import { Card, CardContent, CardHeader, CardTitle } from '@/components/Card';
-// import { Mail, Lock, User, Building2 } from 'lucide-react';
-// import { useAuthStore } from '@/store/authStore';
-// import { apiClient } from '@/app/api/client';
-
-// export default function SignupPage() {
-//   const router = useRouter();
-//   const searchParams = useSearchParams();
-//   const { setUser, setToken, setError, clearError } = useAuthStore();
-//   const [formData, setFormData] = useState({
-//     email: '',
-//     password: '',
-//     name: '',
-//     role: (searchParams.get('role') as 'student' | 'employer') || 'student',
-//   });
-//   const [isLoading, setIsLoading] = useState(false);
-//   const [error, setErrorState] = useState<string | null>(null);
-
-//   useEffect(() => {
-//     // Set default role from URL param or fallback
-//     const role = searchParams.get('role');
-//     if (role && (role === 'student' || role === 'employer')) {
-//       setFormData(prev => ({ ...prev, role }));
-//     }
-//   }, [searchParams]);
-
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault();
-//     setIsLoading(true);
-//     clearError();
-//     setErrorState(null);
-
-//     try {
-//       const response = await apiClient.register({
-//         email: formData.email,
-//         password: formData.password,
-//         name: formData.name,
-//         role: formData.role,
-//       });
-//       const { access_token: token, user } = response.data;
-      
-//       setToken(token);
-//       setUser(user);
-//       router.push('/dashboard');
-//     } catch (err: any) {
-//       const message = err.response?.data?.detail || 'Registration failed. Please try again.';
-//       setError(message);
-//       setErrorState(message);
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   };
-
-//   return (
-//     <div className="min-h-screen bg-[#FAF9F6] flex items-center justify-center px-4 py-12">
-//       <Card className="w-full max-w-md">
-//         <CardHeader>
-//           <div className="flex items-center gap-2 mb-4">
-//             <div className="w-10 h-10 bg-[#112A22] rounded-lg flex items-center justify-center">
-//               <span className="text-white font-bold text-xl">S</span>
-//             </div>
-//             <span className="text-2xl font-bold text-[#112A22]">Shift</span>
-//           </div>
-//           <CardTitle className="text-2xl font-medium">Create your account</CardTitle>
-//         </CardHeader>
-//         <CardContent>
-//           <form onSubmit={handleSubmit} className="space-y-4">
-//             {/* Role Selection */}
-//             <div className="grid grid-cols-2 gap-3">
-//               <button
-//                 type="button"
-//                 onClick={() => setFormData(prev => ({ ...prev, role: 'student' }))}
-//                 className={`py-2 px-3 rounded-lg font-semibold transition-colors ${
-//                   formData.role === 'student'
-//                     ? 'bg-[#112A22] text-white'
-//                     : 'bg-gray-100 text-[#112A22] hover:bg-gray-200'
-//                 }`}
-//               >
-//                 Student
-//               </button>
-//               <button
-//                 type="button"
-//                 onClick={() => setFormData(prev => ({ ...prev, role: 'employer' }))}
-//                 className={`py-2 px-3 rounded-lg font-semibold transition-colors ${
-//                   formData.role === 'employer'
-//                     ? 'bg-[#112A22] text-white'
-//                     : 'bg-gray-100 text-[#112A22] hover:bg-gray-200'
-//                 }`}
-//               >
-//                 Employer
-//               </button>
-//             </div>
-
-//             <Input
-//               label="Full Name"
-//               type="text"
-//               placeholder="John Doe"
-//               leftIcon={<User size={18} />}
-//               value={formData.name}
-//               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-//               required
-//             />
-//             <Input
-//               label="Email"
-//               type="email"
-//               placeholder="your@email.com"
-//               leftIcon={<Mail size={18} />}
-//               value={formData.email}
-//               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-//               required
-//             />
-//             <Input
-//               label="Password"
-//               type="password"
-//               placeholder="••••••••"
-//               leftIcon={<Lock size={18} />}
-//               value={formData.password}
-//               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-//               required
-//             />
-//             {error && (
-//               <div className="text-red-500 text-sm flex items-center gap-1">
-//                 <span>⚠️</span>
-//                 {error}
-//               </div>
-//             )}
-//             <Button type="submit" fullWidth isLoading={isLoading}>
-//               Create Account
-//             </Button>
-//             <div className="text-center text-sm text-gray-600 mt-4">
-//               Already have an account?{' '}
-//               <a href="/login" className="text-[#112A22] font-semibold hover:underline">
-//                 Sign in
-//               </a>
-//             </div>
-//           </form>
-//         </CardContent>
-//       </Card>
-//     </div>
-//   );
-// }
-
-
-
-
-
-
-
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -179,11 +24,22 @@ export default function SignupPage() {
   const [error, setErrorState] = useState<string | null>(null);
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token');
+      if (token) {
+        setToken(token);
+      }
+    }
+  }, []);
+
+
+  useEffect(() => {
     const role = searchParams.get('role');
     if (role && (role === 'student' || role === 'employer')) {
       setFormData(prev => ({ ...prev, role }));
     }
   }, [searchParams]);
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
