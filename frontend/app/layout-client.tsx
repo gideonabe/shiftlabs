@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, ReactNode } from "react";
+import { MotionConfig } from 'framer-motion';
 import { useAuthStore } from "@/store/authStore";
 
 export default function RootLayoutClient({ children }: { children: ReactNode }) {
@@ -9,5 +10,9 @@ export default function RootLayoutClient({ children }: { children: ReactNode }) 
     useAuthStore.getState().hydrate();
   }, []);
 
-  return <>{children}</>;
+  return (
+    <MotionConfig reducedMotion="user">
+      {children}
+    </MotionConfig>
+  );
 }
